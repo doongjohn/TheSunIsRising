@@ -9,6 +9,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private GameObject player;
 
+    [Header("Island")]
+    [SerializeField]
+    private Transform islandStar;
+
     [Header("Position")]
     [SerializeField]
     private float maxLocalX;
@@ -29,9 +33,15 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Gravity")]
     [SerializeField]
-    private float fallSpeed_Normal = 1f;
+    private float fallSpeed = 1f;
+
+    [Header("Collect Star")]
     [SerializeField]
-    private float fallSpeed_Fast = 1f;
+    private float collectRadius;
+
+    [Header("Effects")]
+    [SerializeField]
+    private GameObject slamEffect;
     #endregion
 
     #region Var - Components
@@ -42,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 velocity = Vector2.zero;
     private int walkDir = 0;
     private float curGravity = 0;
-    private bool groundSlaming = false;
+    private bool canGroundSlam = false;
     #endregion
 
     #region Method - Unity
@@ -60,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         Jump();
         Gravity();
         GroundSlam();
+        CollectStar();
 
         ApplyVelocity();
         ClampPosition();
@@ -116,6 +127,7 @@ public class PlayerMovement : MonoBehaviour
         {
             player.transform.localPosition = new Vector3(player.transform.localPosition.x, minLocalY);
             velocity.y = GetJumpVelocity(jumpHeight, jumpTime);
+            canGroundSlam = true;
         }
     }
     private float GetJumpVelocity(float jumpHeight, float jumpTime)
@@ -131,26 +143,10 @@ public class PlayerMovement : MonoBehaviour
     #region Method - Ground Slam
     private void GroundSlam()
     {
-        if (Input.GetKeyDown(KeySettings.GroundSlam))
+        if (canGroundSlam && velocity.y < 0 && IsGrounded())
         {
-            groundSlaming = true;
-
-            if (!IsGrounded(true))
-            {
-                velocity.y = -fallSpeed_Fast;
-
-                // Play Slam Fall Animation
-                // Spawn Slam Fall Effect
-            }
-        }
-
-        if (groundSlaming && IsGrounded(true))
-        {
-            groundSlaming = false;
+            canGroundSlam = false;
             starIslandMovement.SetRotation(player.transform.localPosition.x, maxLocalX);
-
-            // Play Slam Animation
-            // Spawn Slam Effect
         }
     }
     #endregion
@@ -168,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
             // Gravity On Fall
             else
             {
-                curGravity = -fallSpeed_Normal;
+                velocity.y = -fallSpeed;
             }
         }
         else if (velocity.y < 0)
@@ -177,6 +173,25 @@ public class PlayerMovement : MonoBehaviour
         }
 
         ApplyForce(new Vector2(0, curGravity));
+    }
+    #endregion
+
+    #region Method - Collect Star
+    private void CollectStar()
+    {
+        if (IsGrounded())
+            return;
+
+        Collider2D[] star = Physics2D.OverlapCircleAll(player.transform.position, collectRadius);
+
+        if (star == null)
+            return;
+
+        for (int i = 0; i < star.Length; i++)
+        {
+            if (star[i].CompareTag("Star"))
+                star[i].GetComponent<StarItem>().Consume(islandStar);
+        }
     }
     #endregion
 }

@@ -6,8 +6,6 @@ public class SkySunRising : MonoBehaviour
 {
     [Header("Move")]
     [SerializeField]
-    private float minDistX;
-    [SerializeField]
     private float moveSpeed;
 
     [Header("StarIsland")]
@@ -27,7 +25,6 @@ public class SkySunRising : MonoBehaviour
     private void ClampPosition()
     {
         Vector3 pos = transform.position;
-        pos.x = Mathf.Max(pos.x, starIsland.position.x - minDistX);
         pos.y = starIsland.position.y;
 
         transform.position = pos;
