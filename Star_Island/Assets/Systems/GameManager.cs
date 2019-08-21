@@ -5,20 +5,29 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Inst { get; private set; }
 
+    [Header("UI")]
     [SerializeField]
     private GameObject gameStartUI;
     [SerializeField]
     private GameObject gameOverUI;
 
+    [Header("Sun")]
+    [SerializeField]
+    private Transform sun;
+    [SerializeField]
+    private float minSunDist = 0;
+
     private bool gameStarted = false;
     private bool gameOver = false;
     private int curScore = 0;
     private int highScore = 0;
+    private float distOfSun = 0;
 
     public bool GameStarted => gameStarted;
     public bool GameOver => gameOver;
     public int CurScore => curScore;
     public int HighScore => highScore;
+    public float DistOfSun => distOfSun;
 
     private void Awake()
     {
@@ -60,6 +69,16 @@ public class GameManager : MonoBehaviour
                 RestartGame();
             }
         }
+
+        UpdateDistOfSun();
+    }
+
+    private void UpdateDistOfSun()
+    {
+        distOfSun = Player.Inst.transform.position.x - sun.position.x;
+
+        if (distOfSun <= minSunDist)
+            EndGame();
     }
 
     public void StartGame()

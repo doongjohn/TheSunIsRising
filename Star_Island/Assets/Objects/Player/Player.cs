@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Singleton
-    public static Player Instance { get; private set; }
+    public static Player Inst { get; private set; }
 
     #region Var - Inspector
     [Header("Player")]
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         // Initialize Singleton
-        Instance = this;
+        Inst = this;
 
         // Get Component
         starIslandMovement = GetComponent<StarIsland>();
@@ -148,7 +148,7 @@ public class Player : MonoBehaviour
     #region Method - Jump
     private void Jump()
     {
-        if (IsGrounded(true) && Input.GetKeyDown(KeySettings.Jump))
+        if (IsGrounded() && !canGroundSlam /*&& Input.GetKeyDown(KeySettings.Jump)*/)
         {
             playerGO.transform.localPosition = new Vector3(playerGO.transform.localPosition.x, minLocalY);
             velocity.y = GetJumpVelocity(jumpHeight, jumpTime);

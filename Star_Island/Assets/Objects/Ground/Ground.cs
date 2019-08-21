@@ -33,7 +33,7 @@ public class Ground : MonoBehaviour
     private void GroundFollowPlayer()
     {
         Vector3 groundPos = groundObj.transform.position;
-        groundPos.x = Player.Instance.transform.position.x;
+        groundPos.x = Player.Inst.transform.position.x;
         groundObj.transform.position = groundPos;
     }
     private void SpawnTree()

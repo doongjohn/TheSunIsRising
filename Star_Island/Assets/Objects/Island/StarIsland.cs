@@ -22,7 +22,7 @@ public class StarIsland : MonoBehaviour
     [SerializeField]
     private float groundDetectRadius = 5f;
     [SerializeField]
-    private LayerMask groundLayer;
+    private LayerMask obstacleLayer;
 
     private Quaternion rotateTarget;
     private bool rotating = false;
@@ -32,7 +32,7 @@ public class StarIsland : MonoBehaviour
     {
         Rotate();
         Move();
-        DetectGround();
+        DetectObstacle();
     }
 
     private void Move()
@@ -50,11 +50,11 @@ public class StarIsland : MonoBehaviour
             curRotateTime += rotateSpeed * Time.deltaTime;
         }
     }
-    private void DetectGround()
+    private void DetectObstacle()
     {
-        Collider2D ground = Physics2D.OverlapCircle(groundDetectPos.position, groundDetectRadius, groundLayer);
+        Collider2D obstacle = Physics2D.OverlapCircle(groundDetectPos.position, groundDetectRadius, obstacleLayer);
 
-        if (ground == null)
+        if (obstacle == null)
             return;
 
         GameManager.Inst.EndGame();

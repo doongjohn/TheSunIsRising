@@ -347,9 +347,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 950833747}
   - {fileID: 1567623637}
   - {fileID: 1984887929}
+  - {fileID: 950833747}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -797,7 +797,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 189577445
   m_SortingLayer: -1
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 54a2ad08464628642a8516b53b7ccb09, type: 3}
   m_Color: {r: 0.08495015, g: 0.21698111, b: 0.18173373, a: 1}
   m_FlipX: 0
@@ -1832,7 +1832,7 @@ MonoBehaviour:
   rotateSpeed: 3
   groundDetectPos: {fileID: 785587653}
   groundDetectRadius: 2
-  groundLayer:
+  obstacleLayer:
     serializedVersion: 2
     m_Bits: 256
 --- !u!1 &842010946
@@ -2174,6 +2174,7 @@ GameObject:
   - component: {fileID: 950833747}
   - component: {fileID: 950833749}
   - component: {fileID: 950833748}
+  - component: {fileID: 950833750}
   m_Layer: 0
   m_Name: SkyStars
   m_TagString: Untagged
@@ -2193,7 +2194,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 178372590}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &950833748
 MonoBehaviour:
@@ -2259,6 +2260,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &950833750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950833746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6151a43d7e67344998e812de4eb5f65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minOpacity: 0
 --- !u!1 &977174517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2524,6 +2538,7 @@ MonoBehaviour:
   - {fileID: 7497127102700842966, guid: e221e35e3cb8b954c8c847bece1e6ed6, type: 3}
   - {fileID: 4851922469776372355, guid: 825cd8177a7446546ad645cf20a08de2, type: 3}
   - {fileID: 8941319531006179703, guid: df53ada2e7621a949a0e42d4a5e6803a, type: 3}
+  - {fileID: 8941319531006179703, guid: fcad01ec391a2ef458d746dc3edf0fa9, type: 3}
   minTreeRange: 1
   maxTreeRange: 5
   minY: -40
@@ -2956,7 +2971,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 189577445
   m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 5059cdc753c109d45b864b3de2a534f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2980,7 +2995,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 178372590}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1567623638
 MonoBehaviour:
@@ -3473,6 +3488,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameStartUI: {fileID: 675445774}
   gameOverUI: {fileID: 465840285}
+  sun: {fileID: 1984887929}
+  minSunDist: 0
 --- !u!1 &1981215141
 GameObject:
   m_ObjectHideFlags: 0
@@ -3559,6 +3576,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1983890376}
   - component: {fileID: 1983890377}
+  - component: {fileID: 1983890378}
   m_Layer: 0
   m_Name: Moon
   m_TagString: Untagged
@@ -3615,9 +3633,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 189577445
+  m_SortingLayer: -1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: b213607e85c87cd4bbfcde7168951078, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3629,6 +3647,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1983890378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983890375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6151a43d7e67344998e812de4eb5f65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minOpacity: 0.3
 --- !u!1 &1984887927
 GameObject:
   m_ObjectHideFlags: 0
@@ -3684,7 +3715,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 189577445
   m_SortingLayer: -1
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: bd6a9fd57fc617e41919c59fc69a5641, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3704,11 +3735,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1984887927}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -207.25, y: 0, z: 0}
+  m_LocalPosition: {x: -200, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 178372590}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1984887930
 MonoBehaviour:
@@ -3770,6 +3801,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2083894558}
   - component: {fileID: 2083894559}
+  - component: {fileID: 2083894560}
   m_Layer: 0
   m_Name: IslandStar
   m_TagString: Untagged
@@ -3840,6 +3872,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2083894560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083894557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6151a43d7e67344998e812de4eb5f65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minOpacity: 0
 --- !u!1001 &2114468326
 PrefabInstance:
   m_ObjectHideFlags: 0
