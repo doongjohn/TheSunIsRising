@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SkySunRising : MonoBehaviour
 {
+    public static SkySunRising Instance { get; private set; }
+
     [Header("Move")]
     [SerializeField]
     private float moveSpeed;
@@ -12,7 +14,13 @@ public class SkySunRising : MonoBehaviour
     [SerializeField]
     private Transform starIsland;
 
+    public float MoveSpeed => moveSpeed;
 
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Update()
     {
         Move();
