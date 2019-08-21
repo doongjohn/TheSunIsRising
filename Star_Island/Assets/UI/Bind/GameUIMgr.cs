@@ -6,11 +6,11 @@ public class GameUIMgr : AUIRoot
 {
     AText mScore;
     AText mHeight;
-    AText mSunDir;
-    AText bestScore;
+    AText mSunDist;
+    AText mBestScore;
 
     ASlider sHeight;
-    ASlider sGage;
+    ASlider sGauge;
 
     public void OnGaugeSliderChanage()
     {
@@ -25,19 +25,20 @@ public class GameUIMgr : AUIRoot
 
     private void Start() 
     {
-        sHeight.Min = AGameMananger.inst.HeigthManager.Min;
-        sHeight.Max = AGameMananger.inst.HeigthManager.Max;
-        sGage.Min = 0;
-        sGage.Max = AGameMananger.inst.StarManager.MaxStarGage;
-        sGage.Value = AGameMananger.inst.DashMgr.DashGage;
+        sHeight.Min = AGameMananger.Inst.HeigthManager.Min;
+        sHeight.Max = AGameMananger.Inst.HeigthManager.Max;
+        sGauge.Min = 0;
+        sGauge.Max = AGameMananger.Inst.StarManager.MaxStarGauge;
+        sGauge.Value = AGameMananger.Inst.DashMgr.DashGauge;
     }
 
     private void Update() 
     {
-        bestScore.MText = AGameMananger.inst.BestScore.ToString();
-        mScore.MText = AGameMananger.inst.ThisGameScore.ToString();
-        sHeight.Value = AGameMananger.inst.HeigthManager.Heigth;
-        mHeight.MText = AGameMananger.inst.HeigthManager.Heigth.ToString();
-        sGage.Value = AGameMananger.inst.DashMgr.DashGage;
+        mBestScore.MText = "Best Score: " + AGameMananger.Inst.BestScore.ToString();
+        mScore.MText = "Score: " + AGameMananger.Inst.CurrentGameScore.ToString();
+        sHeight.Value = AGameMananger.Inst.HeigthManager.Heigth;
+        mHeight.MText = AGameMananger.Inst.HeigthManager.Heigth.ToString() + "M";
+        mSunDist.MText = Mathf.RoundToInt(AGameMananger.Inst.SunManager.DistOfSun).ToString() + "M";
+        sGauge.Value = AGameMananger.Inst.DashMgr.DashGauge;
     }
 }
