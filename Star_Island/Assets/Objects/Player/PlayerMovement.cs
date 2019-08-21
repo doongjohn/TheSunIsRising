@@ -189,8 +189,12 @@ public class PlayerMovement : MonoBehaviour
 
         for (int i = 0; i < star.Length; i++)
         {
+            int addGage;
             if (star[i].CompareTag("Star"))
-                star[i].GetComponent<StarItem>().Consume(islandStar);
+            {
+                addGage = star[i].GetComponent<StarItem>().Consume(islandStar);
+                AGameMananger.inst.StarManager.AddStarGage (addGage);
+            }
         }
     }
     #endregion

@@ -18,6 +18,13 @@ public class StarIslandMovement : MonoBehaviour
     private bool rotating = false;
     private float curRotateTime = 0;
 
+    public float MoveSpeed 
+    {
+        get {
+            return moveSpeed + AGameMananger.inst.DashPower;
+        } set => moveSpeed = value; 
+    }
+
     private void Update()
     {
         Rotate();
@@ -26,7 +33,7 @@ public class StarIslandMovement : MonoBehaviour
 
     private void Move()
     {
-        transform.Translate(Vector3.up * moveSpeed * Time.deltaTime, Space.Self);
+        transform.Translate(Vector3.up * MoveSpeed * Time.deltaTime, Space.Self);
     }
     private void Rotate()
     {
