@@ -18,6 +18,7 @@ public class Ground : MonoBehaviour
     private float minX, maxX;
 
     private List<Transform> treeObjs = new List<Transform>();
+    private float? prevPlayerX = null;
 
 
     private void Start()
@@ -60,14 +61,19 @@ public class Ground : MonoBehaviour
     }
     private void MoveTrees()
     {
-        for (int i = 0; i < treeObjs.Count; i++)
+        if (prevPlayerX == null || prevPlayerX != AGameMananger.Inst.IslandAndPlayerPos.x)
         {
-            treeObjs[i].transform.Translate(Vector3.left * SkySunRising.Instance.MoveSpeed * Time.deltaTime, Space.World);
-            if (treeObjs[i].localPosition.x < minX)
+            for (int i = 0; i < treeObjs.Count; i++)
             {
-                Vector3 pos = treeObjs[i].localPosition;
-                pos.x = maxX;
-                treeObjs[i].localPosition = pos;
+                treeObjs[i].transform.position += Vector3.left * SkySunRising.Instance.MoveSpeed * Time.deltaTime;
+
+                if (treeObjs[i].localPosition.x < minX)
+                {
+                    Vector3 pos = treeObjs[i].localPosition;
+                    pos.x = maxX;
+                    treeObjs[i].localPosition = pos;
+                    return;
+                }
             }
         }
     }

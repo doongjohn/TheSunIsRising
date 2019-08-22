@@ -41,10 +41,6 @@ public class Player : MonoBehaviour
     [Header("Collect Star")]
     [SerializeField]
     private float startCollectRadius;
-    [SerializeField]
-    private float startScale;
-    [SerializeField]
-    private float maxScale;
 
     [Header("Effects")]
     [SerializeField]
@@ -86,7 +82,6 @@ public class Player : MonoBehaviour
 
         // Initialize Value
         maxLocalX = Mathf.Abs(maxLocalX);
-        sizePerStar = (maxScale - startScale) / maxStarPower;
         collectRadius = startCollectRadius;
     }
     private void Update()
@@ -230,9 +225,6 @@ public class Player : MonoBehaviour
             starPower = Mathf.Max(starPower + amount, 0);
         else
             starPower = Mathf.Min(starPower + amount, maxStarPower);
-
-        playerGO.transform.localScale = new Vector3(startScale + (starPower * sizePerStar), startScale + (starPower * sizePerStar), 0);
-        collectRadius = startCollectRadius + (starPower * sizePerStar);
     }
     #endregion
 }
